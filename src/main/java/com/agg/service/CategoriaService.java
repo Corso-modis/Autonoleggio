@@ -1,8 +1,7 @@
 package com.agg.service;
 
-import java.time.LocalDate;
 import java.util.List;
-import com.agg.entitites.Categoria;
+import com.agg.entities.Categoria;
 
 public interface CategoriaService {
 	public Categoria findById(long id);

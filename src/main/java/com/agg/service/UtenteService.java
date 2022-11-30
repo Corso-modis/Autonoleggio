@@ -1,8 +1,7 @@
 package com.agg.service;
 
 import java.util.List;
-
-import com.agg.entitites.Utente;
+import com.agg.entities.Utente;
 
 public interface UtenteService {
 	public Utente findById(long id);

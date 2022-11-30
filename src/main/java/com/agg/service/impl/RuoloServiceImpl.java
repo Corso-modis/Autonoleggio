@@ -3,7 +3,7 @@ package com.agg.service.impl;
 import java.util.List;
 
 import com.agg.repo.RuoloRepo;
-import com.agg.service.Ruolo;
+import com.agg.entities.Ruolo;
 import com.agg.service.RuoloService;
 
 public class RuoloServiceImpl implements RuoloService {
@@ -32,8 +32,8 @@ public class RuoloServiceImpl implements RuoloService {
 
 	@Override
 	public void update(Ruolo ruolo) {
-		ruoloRepo.findById(ruolo.getId())
-		.orElseThrow(() -> new IllegalArgumentException("Non esiste un ruolo con id " + id));
+		ruoloRepo.findById(ruolo.getId_ruolo())
+		.orElseThrow(() -> new IllegalArgumentException("Non esiste un ruolo con id " + ruolo.getId_ruolo()));
 		ruoloRepo.save(ruolo);
 	}
 
