@@ -1,16 +1,16 @@
 package com.agg.service.impl;
 
-import java.time.LocalDate;
 import java.util.List;
+
+import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
 import com.agg.repo.AutomobileRepo;
-import com.agg.service.Automobile;
+import com.agg.entities.Automobile;
 import com.agg.service.AutomobileService;
-import com.agg.service.Categoria;
+import com.agg.entities.Categoria;
 
-import jakarta.transaction.Transactional;
 
 @Service
 @Transactional

@@ -3,7 +3,7 @@ package com.agg.service.impl;
 import java.util.List;
 
 import com.agg.repo.CategoriaRepo;
-import com.agg.service.Categoria;
+import com.agg.entities.Categoria;
 import com.agg.service.CategoriaService;
 
 public class CategoriaServiceImpl implements CategoriaService {
@@ -23,7 +23,6 @@ public class CategoriaServiceImpl implements CategoriaService {
 	@Override
 	public void save(Categoria categoria) {
 		categoriaRepo.save(categoria);
-
 	}
 
 	@Override
@@ -34,7 +33,7 @@ public class CategoriaServiceImpl implements CategoriaService {
 	@Override
 	public void update(Categoria categoria) {
 		categoriaRepo.findById(categoria.getId())
-				.orElseThrow(() -> new IllegalArgumentException("Non esiste una categoria con id " + id));
+				.orElseThrow(() -> new IllegalArgumentException("Non esiste una categoria con id " + categoria.getId()));
 		categoriaRepo.save(categoria);
 	}
 
@@ -42,5 +41,4 @@ public class CategoriaServiceImpl implements CategoriaService {
 	public void delete(Categoria categoria) {
 		categoriaRepo.delete(categoria);
 	}
-
 }

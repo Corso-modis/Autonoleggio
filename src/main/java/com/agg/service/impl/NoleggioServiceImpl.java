@@ -3,7 +3,7 @@ package com.agg.service.impl;
 import java.util.List;
 
 import com.agg.repo.NoleggioRepo;
-import com.agg.service.Noleggio;
+import com.agg.entities.Noleggio;
 import com.agg.service.NoleggioService;
 
 public class NoleggioServiceImpl implements NoleggioService {
@@ -33,7 +33,7 @@ public class NoleggioServiceImpl implements NoleggioService {
 	@Override
 	public void update(Noleggio noleggio) {
 		noleggioRepo.findById(noleggio.getId())
-				.orElseThrow(() -> new IllegalArgumentException("Non esiste un noleggio con id " + id));
+				.orElseThrow(() -> new IllegalArgumentException("Non esiste un noleggio con id " + noleggio.getId()));
 		noleggioRepo.save(noleggio);
 	}
 

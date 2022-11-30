@@ -4,8 +4,9 @@ import java.util.List;
 
 import com.agg.entities.Utente;
 import com.agg.repo.UtenteRepo;
+import com.agg.service.UtenteService;
 
-public class UtenteServiceImpl {
+public class UtenteServiceImpl implements UtenteService{
 	private UtenteRepo utenteRepo;
 
 	public UtenteServiceImpl(UtenteRepo utenteRepo) {
@@ -32,8 +33,8 @@ public class UtenteServiceImpl {
 
 	@Override
 	public void update(Utente utente) {
-		utenteRepo.findById(utente.getId())
-				.orElseThrow(() -> new IllegalArgumentException("Non esiste una categoria con id " + id));
+		utenteRepo.findById(utente.getId_utente())
+				.orElseThrow(() -> new IllegalArgumentException("Non esiste una categoria con id " + utente.getId_utente()));
 		utenteRepo.save(utente);
 	}
 
