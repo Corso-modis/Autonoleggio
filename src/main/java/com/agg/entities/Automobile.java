@@ -5,12 +5,15 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -48,7 +51,7 @@ public class Automobile {
 	@Column(nullable=false)
 	private Timestamp dataImmatricolazione;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(nullable=false)
 	private Categoria categoria;
 	
@@ -58,7 +61,7 @@ public class Automobile {
 
 	
 	public Automobile(long id, String marca, String modello, String targa, String colore, String alimentazione,
-			double km, int cavalli, boolean isNoleggiata, Timestamp dataImmatricolazione, Categoria categoria) {
+			double km, int cavalli, Timestamp dataImmatricolazione, Categoria categoria) {
 		super();
 		this.id = id;
 		this.marca = marca;
@@ -68,8 +71,8 @@ public class Automobile {
 		this.alimentazione = alimentazione;
 		this.km = km;
 		this.cavalli = cavalli;
-		this.isNoleggiata = isNoleggiata;
 		this.dataImmatricolazione = dataImmatricolazione;
+		this.isNoleggiata = false;
 		this.categoria = categoria;
 	}
 

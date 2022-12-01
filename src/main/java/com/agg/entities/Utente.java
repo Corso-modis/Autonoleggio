@@ -1,5 +1,6 @@
 package com.agg.entities;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -7,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -36,14 +38,15 @@ public class Utente {
 	@OneToMany(mappedBy="utente")
 	@JsonIgnore
 	private Set<Noleggio> noleggi;
-
+	
+	@ManyToMany(mappedBy = "utenti")
+	private Set<Ruolo> ruoli = new HashSet<>();
 	
 	public Utente() {
 		super();
 	}
 	
-	public Utente(long id_utente, String email, String username, String password, int eta, String patente,
-			Set<Noleggio> noleggi) {
+	public Utente(long id_utente, String email, String username, String password, int eta, String patente) {
 		super();
 		this.id_utente = id_utente;
 		this.email = email;
@@ -51,9 +54,8 @@ public class Utente {
 		this.password = password;
 		this.eta = eta;
 		this.patente = patente;
-		this.noleggi = noleggi;
+		this.ruoli.add(new Ruolo(2, "user"));
 	}
-	
 	
 	public long getId_utente() {
 		return id_utente;

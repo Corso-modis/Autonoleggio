@@ -26,7 +26,7 @@ public class NoleggioController {
 		this.noleggioService = noleggioService;
 	}
 
-	@GetMapping("/findAll")
+	@GetMapping("/all")
 	public ResponseEntity<List<Noleggio>> findAll() {
 		try {
 			return new ResponseEntity<>(noleggioService.findAll(), HttpStatus.OK);
@@ -35,7 +35,7 @@ public class NoleggioController {
 		}
 	}
 
-	@GetMapping("/findById/{id}")
+	@GetMapping("/id/{id}")
 	public ResponseEntity<Noleggio> findById(@PathVariable("id") long id) {
 		try {
 			return new ResponseEntity<>(noleggioService.findById(id), HttpStatus.OK);
@@ -44,7 +44,7 @@ public class NoleggioController {
 		}
 	}
 
-	@PostMapping("/saveNoleggio")
+	@PostMapping("/save")
 	public ResponseEntity<?> save(@RequestBody Noleggio noleggio) {
 		try {
 			noleggioService.save(noleggio);
@@ -54,7 +54,7 @@ public class NoleggioController {
 		}
 	}
 
-	@PutMapping("/updateNoleggio")
+	@PutMapping("/update")
 	public ResponseEntity<?> update(@RequestBody Noleggio noleggio) {
 		try {
 			noleggioService.update(noleggio);
@@ -64,7 +64,7 @@ public class NoleggioController {
 		}
 	}
 
-	@DeleteMapping("/deleteNoleggio")
+	@DeleteMapping("/delete")
 	public ResponseEntity<?> delete(@RequestBody Noleggio noleggio) {
 		try {
 			noleggioService.delete(noleggio);
