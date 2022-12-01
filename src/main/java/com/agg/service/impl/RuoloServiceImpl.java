@@ -2,10 +2,16 @@ package com.agg.service.impl;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
+import org.springframework.stereotype.Service;
+
 import com.agg.repo.RuoloRepo;
 import com.agg.entities.Ruolo;
 import com.agg.service.RuoloService;
 
+@Service
+@Transactional
 public class RuoloServiceImpl implements RuoloService {
 	private RuoloRepo ruoloRepo;
 

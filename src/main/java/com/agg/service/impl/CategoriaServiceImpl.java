@@ -2,10 +2,16 @@ package com.agg.service.impl;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
+import org.springframework.stereotype.Service;
+
 import com.agg.repo.CategoriaRepo;
 import com.agg.entities.Categoria;
 import com.agg.service.CategoriaService;
 
+@Service
+@Transactional
 public class CategoriaServiceImpl implements CategoriaService {
 	private CategoriaRepo categoriaRepo;
 

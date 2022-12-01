@@ -27,7 +27,7 @@ public class UtenteController {
 	}
 	
 	@GetMapping("/findAll")
-	public ResponseEntity<List<Utente>> findUtenti() {
+	public ResponseEntity<List<Utente>> findAll() {
 		try {
 			return new ResponseEntity<>(utenteService.findAll(), HttpStatus.OK);
 		}catch(Exception e) {
@@ -36,7 +36,7 @@ public class UtenteController {
 	}
 	
 	@GetMapping("/findById/{id}")
-	public ResponseEntity<Utente> findUtenteById(@PathVariable ("id") long id) {
+	public ResponseEntity<Utente> findById(@PathVariable ("id") long id) {
 		try {
 			return new ResponseEntity<>(utenteService.findById(id), HttpStatus.OK);
 		}catch(Exception e) {
@@ -45,7 +45,7 @@ public class UtenteController {
 	}
 	
 	@PostMapping("/saveUtente")
-	public ResponseEntity<?> saveUtente(@RequestBody Utente utente) {
+	public ResponseEntity<?> save(@RequestBody Utente utente) {
 		try {
 			utenteService.save(utente);
 			return new ResponseEntity<>(HttpStatus.CREATED);
@@ -55,7 +55,7 @@ public class UtenteController {
 	}
 	
 	@PutMapping("/updateUtente")
-	public ResponseEntity<?> updateUtente(@RequestBody Utente utente) {
+	public ResponseEntity<?> update(@RequestBody Utente utente) {
 		try {
 			utenteService.update(utente);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -65,7 +65,7 @@ public class UtenteController {
 	}
 	
 	@DeleteMapping("/deleteUtente")
-	public ResponseEntity<?> deleteUtente(@RequestBody Utente utente) {
+	public ResponseEntity<?> delete(@RequestBody Utente utente) {
 		try {
 			utenteService.delete(utente);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);

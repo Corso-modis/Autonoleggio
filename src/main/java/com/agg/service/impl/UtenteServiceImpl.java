@@ -2,10 +2,16 @@ package com.agg.service.impl;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
+import org.springframework.stereotype.Service;
+
 import com.agg.entities.Utente;
 import com.agg.repo.UtenteRepo;
 import com.agg.service.UtenteService;
 
+@Service
+@Transactional
 public class UtenteServiceImpl implements UtenteService{
 	private UtenteRepo utenteRepo;
 

@@ -2,10 +2,16 @@ package com.agg.service.impl;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
+import org.springframework.stereotype.Service;
+
 import com.agg.repo.NoleggioRepo;
 import com.agg.entities.Noleggio;
 import com.agg.service.NoleggioService;
 
+@Service
+@Transactional
 public class NoleggioServiceImpl implements NoleggioService {
 	private NoleggioRepo noleggioRepo;
 
