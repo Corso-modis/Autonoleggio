@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -22,6 +23,7 @@ public class Ruolo {
 	@Column(nullable = false)
 	private String nome;
 
+	@ManyToMany
 	@JoinTable(name = "ruoli_utenti", joinColumns = @JoinColumn(name = "id_ruolo"),
 			inverseJoinColumns = @JoinColumn(name = "id_utente"))
 	@JsonIgnore

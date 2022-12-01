@@ -17,7 +17,7 @@ import com.agg.entities.Noleggio;
 import com.agg.service.NoleggioService;
 
 @RestController
-@RequestMapping("/utente")
+@RequestMapping("/noleggio")
 public class NoleggioController {
 	private NoleggioService noleggioService;
 
@@ -27,7 +27,7 @@ public class NoleggioController {
 	}
 
 	@GetMapping("/findAll")
-	public ResponseEntity<List<Noleggio>> findUtenti() {
+	public ResponseEntity<List<Noleggio>> findAll() {
 		try {
 			return new ResponseEntity<>(noleggioService.findAll(), HttpStatus.OK);
 		} catch (Exception e) {
@@ -36,7 +36,7 @@ public class NoleggioController {
 	}
 
 	@GetMapping("/findById/{id}")
-	public ResponseEntity<Noleggio> findNoleggioById(@PathVariable("id") long id) {
+	public ResponseEntity<Noleggio> findById(@PathVariable("id") long id) {
 		try {
 			return new ResponseEntity<>(noleggioService.findById(id), HttpStatus.OK);
 		} catch (Exception e) {
@@ -45,7 +45,7 @@ public class NoleggioController {
 	}
 
 	@PostMapping("/saveNoleggio")
-	public ResponseEntity<?> saveUtente(@RequestBody Noleggio noleggio) {
+	public ResponseEntity<?> save(@RequestBody Noleggio noleggio) {
 		try {
 			noleggioService.save(noleggio);
 			return new ResponseEntity<>(HttpStatus.CREATED);
@@ -55,7 +55,7 @@ public class NoleggioController {
 	}
 
 	@PutMapping("/updateNoleggio")
-	public ResponseEntity<?> updateUtente(@RequestBody Noleggio noleggio) {
+	public ResponseEntity<?> update(@RequestBody Noleggio noleggio) {
 		try {
 			noleggioService.update(noleggio);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -65,7 +65,7 @@ public class NoleggioController {
 	}
 
 	@DeleteMapping("/deleteNoleggio")
-	public ResponseEntity<?> deleteUtente(@RequestBody Noleggio noleggio) {
+	public ResponseEntity<?> delete(@RequestBody Noleggio noleggio) {
 		try {
 			noleggioService.delete(noleggio);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
