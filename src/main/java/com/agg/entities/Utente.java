@@ -10,42 +10,50 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Utente {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id_utente;
-	
-	@Column(nullable=false)
+
+	@Column(nullable = false)
+	@Email(regexp = "/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$/", message = "Email inserita non valida")
 	private String email;
-	
-	@Column(nullable=false)
+
+	@Column(nullable = false)
+	@NotNull(message = "Username inserito vuoto")
 	private String username;
-	
-	@Column(nullable=false)
+
+	@Column(nullable = false)
+	@NotNull(message = "Password inserito vuoto")
 	private String password;
-	
-	@Column(nullable=false)
+
+	@Column(nullable = false)
+	@Min(value = 18, message = "Devi avere almeno 18 anni per registrarti")
 	private int eta;
-	
-	@Column(nullable=false, length=9)
+
+	@Column(nullable = false, length = 9)
+	@NotNull(message = "Patente inserita ")
 	private String patente;
-	
-	@OneToMany(mappedBy="utente")
+
+	@OneToMany(mappedBy = "utente")
 	@JsonIgnore
 	private Set<Noleggio> noleggi;
-	
+
 	@ManyToMany(mappedBy = "utenti")
 	private Set<Ruolo> ruoli = new HashSet<>();
-	
+
 	public Utente() {
 		super();
 	}
-	
+
 	public Utente(long id_utente, String email, String username, String password, int eta, String patente) {
 		super();
 		this.id_utente = id_utente;
@@ -56,7 +64,7 @@ public class Utente {
 		this.patente = patente;
 		this.ruoli.add(new Ruolo(2, "user"));
 	}
-	
+
 	public long getId_utente() {
 		return id_utente;
 	}
@@ -115,7 +123,7 @@ public class Utente {
 
 	@Override
 	public String toString() {
-		return "Utente [id=" + id_utente + ", email=" + email + ", username=" + username + ", password=" + password + ", eta="
-				+ eta + ", patente=" + patente + "]";
+		return "Utente [id=" + id_utente + ", email=" + email + ", username=" + username + ", password=" + password
+				+ ", eta=" + eta + ", patente=" + patente + "]";
 	}
 }

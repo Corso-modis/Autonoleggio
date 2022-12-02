@@ -28,7 +28,6 @@ public class NoleggioServiceImpl implements NoleggioService {
 
 	@Override
 	public void save(Noleggio noleggio) {
-		noleggio.setCosto(0);
 		noleggioRepo.save(noleggio);
 	}
 

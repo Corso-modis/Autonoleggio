@@ -79,23 +79,7 @@ public class Noleggio {
 	}
 
 	public void setCosto(double costo) {
-		long d = (dataFine.getTime() - dataInizio.getTime()) / 1000 / 60 / 60 / 24;
-		long prezzo = 0;	
-		while (d > 0) {
-			if (d < 7) {
-				prezzo += automobile.getCategoria().getPrezzo_giornaliero();
-				d--;
-			} else if (d >= 7 && d < 30) {
-				prezzo += automobile.getCategoria().getPrezzo_settimanale();
-				d -= 7;
-			} else {
-				prezzo += automobile.getCategoria().getPrezzo_mensile();
-				d -= 30;
-			}
-		}
-		System.err.println(prezzo);
-		System.err.println(this.costo);
-		this.costo = prezzo;
+		this.costo = costo;
 	}
 
 	public Automobile getAutomobile() {
