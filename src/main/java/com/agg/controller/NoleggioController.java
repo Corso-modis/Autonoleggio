@@ -14,19 +14,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.agg.entities.Noleggio;
+import com.agg.service.AutomobileService;
 import com.agg.service.NoleggioService;
 
 @RestController
 @RequestMapping("/noleggio")
 public class NoleggioController {
 	private NoleggioService noleggioService;
+	private AutomobileService automobileService;
 
-	public NoleggioController(NoleggioService noleggioService) {
+	public NoleggioController(NoleggioService noleggioService, AutomobileService automobileService) {
 		super();
 		this.noleggioService = noleggioService;
+		this.automobileService = automobileService;
 	}
 
-	@GetMapping("/findAll")
+	@GetMapping("/all")
 	public ResponseEntity<List<Noleggio>> findAll() {
 		try {
 			return new ResponseEntity<>(noleggioService.findAll(), HttpStatus.OK);
@@ -35,7 +38,7 @@ public class NoleggioController {
 		}
 	}
 
-	@GetMapping("/findById/{id}")
+	@GetMapping("/id/{id}")
 	public ResponseEntity<Noleggio> findById(@PathVariable("id") long id) {
 		try {
 			return new ResponseEntity<>(noleggioService.findById(id), HttpStatus.OK);
@@ -44,17 +47,19 @@ public class NoleggioController {
 		}
 	}
 
-	@PostMapping("/saveNoleggio")
+	@PostMapping("/save")
 	public ResponseEntity<?> save(@RequestBody Noleggio noleggio) {
 		try {
 			noleggioService.save(noleggio);
+			calcoloCosto(noleggio);
 			return new ResponseEntity<>(HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
 		}
+
 	}
 
-	@PutMapping("/updateNoleggio")
+	@PutMapping("/update")
 	public ResponseEntity<?> update(@RequestBody Noleggio noleggio) {
 		try {
 			noleggioService.update(noleggio);
@@ -64,7 +69,7 @@ public class NoleggioController {
 		}
 	}
 
-	@DeleteMapping("/deleteNoleggio")
+	@DeleteMapping("/delete")
 	public ResponseEntity<?> delete(@RequestBody Noleggio noleggio) {
 		try {
 			noleggioService.delete(noleggio);
@@ -72,5 +77,25 @@ public class NoleggioController {
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
 		}
+	}
+
+	private void calcoloCosto(Noleggio noleggio) {
+		noleggio.setAutomobile(automobileService.findById(noleggio.getAutomobile().getId()));
+		long d = (noleggio.getDataFine().getTime() - noleggio.getDataInizio().getTime()) / 1000 / 60 / 60 / 24;
+		long prezzo = 0;	
+		while (d > 0) {
+			if (d < 7) {
+				prezzo += noleggio.getAutomobile().getCategoria().getPrezzo_giornaliero();
+				d--;
+			} else if (d >= 7 && d < 30) {
+				prezzo += noleggio.getAutomobile().getCategoria().getPrezzo_settimanale();
+				d -= 7;
+			} else {
+				prezzo += noleggio.getAutomobile().getCategoria().getPrezzo_mensile();
+				d -= 30;
+			}
+		}
+		noleggio.setCosto(prezzo);
+		noleggioService.update(noleggio);
 	}
 }

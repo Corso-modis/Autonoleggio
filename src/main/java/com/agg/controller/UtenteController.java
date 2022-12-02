@@ -26,7 +26,7 @@ public class UtenteController {
 		this.utenteService = utenteService;
 	}
 	
-	@GetMapping("/findAll")
+	@GetMapping("/all")
 	public ResponseEntity<List<Utente>> findAll() {
 		try {
 			return new ResponseEntity<>(utenteService.findAll(), HttpStatus.OK);
@@ -35,7 +35,7 @@ public class UtenteController {
 		}
 	}
 	
-	@GetMapping("/findById/{id}")
+	@GetMapping("/id/{id}")
 	public ResponseEntity<Utente> findById(@PathVariable ("id") long id) {
 		try {
 			return new ResponseEntity<>(utenteService.findById(id), HttpStatus.OK);
@@ -44,7 +44,7 @@ public class UtenteController {
 		}
 	}
 	
-	@PostMapping("/saveUtente")
+	@PostMapping("/save")
 	public ResponseEntity<?> save(@RequestBody Utente utente) {
 		try {
 			utenteService.save(utente);
@@ -54,7 +54,7 @@ public class UtenteController {
 		}
 	}
 	
-	@PutMapping("/updateUtente")
+	@PutMapping("/update")
 	public ResponseEntity<?> update(@RequestBody Utente utente) {
 		try {
 			utenteService.update(utente);
@@ -64,10 +64,10 @@ public class UtenteController {
 		}
 	}
 	
-	@DeleteMapping("/deleteUtente")
+	@DeleteMapping("/delete")
 	public ResponseEntity<?> delete(@RequestBody Utente utente) {
 		try {
-			utenteService.delete(utente);
+			utenteService.delete(utente);	
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}catch(Exception e) {
 			return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
