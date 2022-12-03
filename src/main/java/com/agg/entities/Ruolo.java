@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -18,9 +20,11 @@ public class Ruolo {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Positive
 	private long id_ruolo;
 
 	@Column(nullable = false)
+	@NotBlank(message = "Nome inserito non valido")
 	private String nome;
 
 	@ManyToMany

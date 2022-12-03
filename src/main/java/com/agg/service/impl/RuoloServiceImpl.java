@@ -3,6 +3,7 @@ package com.agg.service.impl;
 import java.util.List;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,7 @@ import com.agg.service.RuoloService;
 public class RuoloServiceImpl implements RuoloService {
 	private RuoloRepo ruoloRepo;
 
-	public RuoloServiceImpl(RuoloRepo ruoloRepo) {
+	public RuoloServiceImpl(@Valid RuoloRepo ruoloRepo) {
 		super();
 		this.ruoloRepo = ruoloRepo;
 	}
@@ -27,7 +28,7 @@ public class RuoloServiceImpl implements RuoloService {
 	}
 
 	@Override
-	public void save(Ruolo ruolo) {
+	public void save(@Valid Ruolo ruolo) {
 		ruoloRepo.save(ruolo);
 	}
 
@@ -37,14 +38,14 @@ public class RuoloServiceImpl implements RuoloService {
 	}
 
 	@Override
-	public void update(Ruolo ruolo) {
+	public void update(@Valid Ruolo ruolo) {
 		ruoloRepo.findById(ruolo.getId_ruolo())
 		.orElseThrow(() -> new IllegalArgumentException("Non esiste un ruolo con id " + ruolo.getId_ruolo()));
 		ruoloRepo.save(ruolo);
 	}
 
 	@Override
-	public void delete(Ruolo ruolo) {
+	public void delete(@Valid Ruolo ruolo) {
 		ruoloRepo.delete(ruolo);
 	}
 
