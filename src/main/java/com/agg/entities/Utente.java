@@ -24,11 +24,10 @@ public class Utente {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Positive(message = "Id inserito deve essere maggiore di 0")
 	private long id_utente;
 
 	@Column(nullable = false)
-	@Email(regexp = "/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$/", message = "Email inserita non valida")
+	@Email(message = "Email inserita non valida")
 	private String email;
 
 	@Column(nullable = false)

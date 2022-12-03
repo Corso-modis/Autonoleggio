@@ -20,7 +20,6 @@ public class Ruolo {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Positive
 	private long id_ruolo;
 
 	@Column(nullable = false)

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import javax.validation.ValidationException;
 
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,7 @@ import com.agg.entities.Categoria;
 public class AutomobileServiceImpl implements AutomobileService {
 	private AutomobileRepo automobileRepo;
 
-	public AutomobileServiceImpl(@Valid AutomobileRepo automobileRepo) {
+	public AutomobileServiceImpl(@Valid AutomobileRepo automobileRepo) throws ValidationException{
 		this.automobileRepo = automobileRepo;
 	}
 
@@ -28,7 +29,7 @@ public class AutomobileServiceImpl implements AutomobileService {
 	}
 
 	@Override
-	public void save(@Valid Automobile automobile) {
+	public void save(@Valid Automobile automobile) throws ValidationException{
 		automobileRepo.save(automobile);
 	}
 
@@ -38,7 +39,7 @@ public class AutomobileServiceImpl implements AutomobileService {
 	}
 
 	@Override
-	public void update(@Valid Automobile automobile) {
+	public void update(@Valid Automobile automobile) throws ValidationException{
 		automobileRepo.findById(automobile.getId()).orElseThrow(
 				() -> new IllegalArgumentException("Non esiste un automobile con id " + automobile.getId()));
 		automobileRepo.save(automobile);
@@ -55,7 +56,7 @@ public class AutomobileServiceImpl implements AutomobileService {
 	}
 
 	@Override
-	public List<Automobile> findByCategoria(@Valid Categoria categoria) {
+	public List<Automobile> findByCategoria(@Valid Categoria categoria)  throws ValidationException{
 		return automobileRepo.findByCategoria(categoria);
 	}
 
