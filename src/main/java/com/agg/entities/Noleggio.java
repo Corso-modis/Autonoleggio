@@ -10,29 +10,38 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 @Entity
 public class Noleggio {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Positive(message="id negativo")
 	private long id;
 
 	@Column(nullable = false)
+	@NotBlank(message = "La data di inizio noleggio non può essere vuota")
 	private Timestamp dataInizio;
 
 	@Column(nullable = false)
+	@NotBlank(message = "La data di fine noleggio non può essere vuota")
 	private Timestamp dataFine;
 
 	@Column(nullable = false)
+	@Positive(message="costo >0 non rispettata")
 	private double costo;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(nullable = false)
+	@NotNull(message = "Campo automobile non può essere vuoto")
 	private Automobile automobile;
 
 	@ManyToOne
 	@JoinColumn(nullable = false)
+	@NotNull(message = "Campo utente non può essere vuota")
 	private Utente utente;
 
 	public Noleggio(long id, Timestamp dataInizio, Timestamp dataFine, double costo, Automobile automobile,
