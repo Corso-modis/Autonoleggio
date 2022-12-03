@@ -3,6 +3,7 @@ package com.agg.service.impl;
 import java.util.List;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 import org.springframework.stereotype.Service;
 
@@ -11,13 +12,12 @@ import com.agg.entities.Automobile;
 import com.agg.service.AutomobileService;
 import com.agg.entities.Categoria;
 
-
 @Service
 @Transactional
 public class AutomobileServiceImpl implements AutomobileService {
 	private AutomobileRepo automobileRepo;
 
-	public AutomobileServiceImpl(AutomobileRepo automobileRepo) {
+	public AutomobileServiceImpl(@Valid AutomobileRepo automobileRepo) {
 		this.automobileRepo = automobileRepo;
 	}
 
@@ -28,7 +28,7 @@ public class AutomobileServiceImpl implements AutomobileService {
 	}
 
 	@Override
-	public void save(Automobile automobile){
+	public void save(@Valid Automobile automobile) {
 		automobileRepo.save(automobile);
 	}
 
@@ -38,9 +38,9 @@ public class AutomobileServiceImpl implements AutomobileService {
 	}
 
 	@Override
-	public void update(Automobile automobile) {
-		automobileRepo.findById(automobile.getId())
-		.orElseThrow(() -> new IllegalArgumentException("Non esiste un automobile con id " + automobile.getId()));
+	public void update(@Valid Automobile automobile) {
+		automobileRepo.findById(automobile.getId()).orElseThrow(
+				() -> new IllegalArgumentException("Non esiste un automobile con id " + automobile.getId()));
 		automobileRepo.save(automobile);
 	}
 
@@ -50,12 +50,12 @@ public class AutomobileServiceImpl implements AutomobileService {
 	}
 
 	@Override
-	public void delete(Automobile automobile) {
+	public void delete(@Valid Automobile automobile) {
 		automobileRepo.delete(automobile);
 	}
 
 	@Override
-	public List<Automobile> findByCategoria(Categoria categoria) {
+	public List<Automobile> findByCategoria(@Valid Categoria categoria) {
 		return automobileRepo.findByCategoria(categoria);
 	}
 
@@ -68,6 +68,5 @@ public class AutomobileServiceImpl implements AutomobileService {
 	public List<Automobile> findByModello(String modello) {
 		return automobileRepo.findByModello(modello);
 	}
-
 
 }

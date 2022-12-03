@@ -3,6 +3,7 @@ package com.agg.service.impl;
 import java.util.List;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,7 @@ import com.agg.service.NoleggioService;
 public class NoleggioServiceImpl implements NoleggioService {
 	private NoleggioRepo noleggioRepo;
 
-	public NoleggioServiceImpl(NoleggioRepo noleggioRepo) {
+	public NoleggioServiceImpl(@Valid NoleggioRepo noleggioRepo) {
 		super();
 		this.noleggioRepo = noleggioRepo;
 	}
@@ -27,7 +28,7 @@ public class NoleggioServiceImpl implements NoleggioService {
 	}
 
 	@Override
-	public void save(Noleggio noleggio) {
+	public void save(@Valid Noleggio noleggio) {
 		noleggioRepo.save(noleggio);
 	}
 
@@ -37,14 +38,14 @@ public class NoleggioServiceImpl implements NoleggioService {
 	}
 
 	@Override
-	public void update(Noleggio noleggio) {
+	public void update(@Valid Noleggio noleggio) {
 		noleggioRepo.findById(noleggio.getId())
 				.orElseThrow(() -> new IllegalArgumentException("Non esiste un noleggio con id " + noleggio.getId()));
 		noleggioRepo.save(noleggio);
 	}
 
 	@Override
-	public void delete(Noleggio noleggio) {
+	public void delete(@Valid Noleggio noleggio) {
 		noleggioRepo.delete(noleggio);
 	}
 

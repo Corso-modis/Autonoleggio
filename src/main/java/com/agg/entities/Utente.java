@@ -12,8 +12,11 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 
+import com.agg.customValidation.PasswordConstraint;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -21,6 +24,7 @@ public class Utente {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Positive(message = "Id inserito deve essere maggiore di 0")
 	private long id_utente;
 
 	@Column(nullable = false)
@@ -28,11 +32,11 @@ public class Utente {
 	private String email;
 
 	@Column(nullable = false)
-	@NotNull(message = "Username inserito vuoto")
+	@NotBlank(message = "Username non puo' essere vuoto")
 	private String username;
 
 	@Column(nullable = false)
-	@NotNull(message = "Password inserito vuoto")
+	@PasswordConstraint(message = "La password non rispetta i criteri")
 	private String password;
 
 	@Column(nullable = false)
@@ -40,7 +44,8 @@ public class Utente {
 	private int eta;
 
 	@Column(nullable = false, length = 9)
-	@NotNull(message = "Patente inserita ")
+	@NotBlank(message = "Username non puo' essere vuoto")
+	@Size(min = 9, max = 9, message = "Lunghezza non rispettata")
 	private String patente;
 
 	@OneToMany(mappedBy = "utente")
