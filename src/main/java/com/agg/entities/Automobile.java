@@ -12,6 +12,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -22,37 +28,48 @@ public class Automobile {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Positive(message = "id negativo")
 	private long id;
 	
-	@Column(nullable=false )
+	@Column(nullable=false)
+	@NotBlank(message = "La marca non può essere vuota")
 	private String marca;
 	
 	@Column(nullable=false)
+	@NotBlank(message = "Il modello non può essere vuoto")
 	private String modello;
 	
 	@Column(nullable=false, length=7)
+	@NotBlank(message = "La targa non può essere vuota")
 	private String targa;
 	
 	@Column(nullable=false)
+	@NotBlank(message = "Il colore non può essere vuoto")
 	private String colore;
 	
 	@Column(nullable=false)
+	@NotBlank(message = "L'alimentazione non può essere vuota")
 	private String alimentazione;
 	
 	@Column(nullable=false)
+	@PositiveOrZero(message=" km >= 0 non rispettata ")
 	private double km;
 	
 	@Column(nullable=false)
+	@Min(value=80)
 	private int cavalli;
 	
 	@Column(nullable=false)
 	private boolean isNoleggiata;
 	
 	@Column(nullable=false)
+	@NotBlank(message = "La marca non può essere vuota")
+	@PastOrPresent(message= "La macchina del tempo non esiste ancora nel nostro tempo")
 	private Timestamp dataImmatricolazione;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(nullable=false)
+	@NotNull(message = "Campo categoria non può essere vuoto")
 	private Categoria categoria;
 	
 	@OneToMany(mappedBy="automobile")
