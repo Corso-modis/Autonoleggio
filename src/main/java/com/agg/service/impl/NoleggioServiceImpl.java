@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import javax.validation.ValidationException;
 
 import org.springframework.stereotype.Service;
 
@@ -28,7 +29,7 @@ public class NoleggioServiceImpl implements NoleggioService {
 	}
 
 	@Override
-	public void save(@Valid Noleggio noleggio) {
+	public void save(@Valid Noleggio noleggio)  throws ValidationException{
 		noleggioRepo.save(noleggio);
 	}
 
@@ -38,14 +39,14 @@ public class NoleggioServiceImpl implements NoleggioService {
 	}
 
 	@Override
-	public void update(@Valid Noleggio noleggio) {
+	public void update(@Valid Noleggio noleggio)  throws ValidationException{
 		noleggioRepo.findById(noleggio.getId())
 				.orElseThrow(() -> new IllegalArgumentException("Non esiste un noleggio con id " + noleggio.getId()));
 		noleggioRepo.save(noleggio);
 	}
 
 	@Override
-	public void delete(@Valid Noleggio noleggio) {
+	public void delete(@Valid Noleggio noleggio)  throws ValidationException{
 		noleggioRepo.delete(noleggio);
 	}
 

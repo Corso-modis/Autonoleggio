@@ -16,6 +16,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 
@@ -28,7 +29,6 @@ public class Automobile {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Positive(message = "id negativo")
 	private long id;
 	
 	@Column(nullable=false)
@@ -63,7 +63,7 @@ public class Automobile {
 	private boolean isNoleggiata;
 	
 	@Column(nullable=false)
-	@NotBlank(message = "La marca non può essere vuota")
+	@NotNull(message = "La data di immatricolazione non può essere vuota")
 	@PastOrPresent(message= "La macchina del tempo non esiste ancora nel nostro tempo")
 	private Timestamp dataImmatricolazione;
 	

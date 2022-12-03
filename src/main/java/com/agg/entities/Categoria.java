@@ -19,7 +19,6 @@ public class Categoria {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Positive(message = "id negativo")
 	private long id;
 	
 	@Column(nullable=false)

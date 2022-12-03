@@ -2,6 +2,8 @@ package com.agg.controller;
 
 import java.util.List;
 
+import javax.validation.ValidationException;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.agg.entities.Noleggio;
 import com.agg.service.AutomobileService;
@@ -53,8 +56,8 @@ public class NoleggioController {
 			noleggioService.save(noleggio);
 			calcoloCosto(noleggio);
 			return new ResponseEntity<>(HttpStatus.CREATED);
-		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
+		} catch (ValidationException e) {
+			throw new ResponseStatusException(HttpStatus.I_AM_A_TEAPOT, e.getMessage());
 		}
 
 	}
@@ -64,8 +67,8 @@ public class NoleggioController {
 		try {
 			noleggioService.update(noleggio);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
+		} catch (ValidationException e) {
+			throw new ResponseStatusException(HttpStatus.I_AM_A_TEAPOT, e.getMessage());
 		}
 	}
 
@@ -74,15 +77,15 @@ public class NoleggioController {
 		try {
 			noleggioService.delete(noleggio);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
+		} catch (ValidationException e) {
+			throw new ResponseStatusException(HttpStatus.I_AM_A_TEAPOT, e.getMessage());
 		}
 	}
 
 	private void calcoloCosto(Noleggio noleggio) {
 		noleggio.setAutomobile(automobileService.findById(noleggio.getAutomobile().getId()));
 		long d = (noleggio.getDataFine().getTime() - noleggio.getDataInizio().getTime()) / 1000 / 60 / 60 / 24;
-		long prezzo = 0;	
+		long prezzo = 0;
 		while (d > 0) {
 			if (d < 7) {
 				prezzo += noleggio.getAutomobile().getCategoria().getPrezzo_giornaliero();

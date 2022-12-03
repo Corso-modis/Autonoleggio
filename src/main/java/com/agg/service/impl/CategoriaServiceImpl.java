@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import javax.validation.ValidationException;
 
 import org.springframework.stereotype.Service;
 
@@ -28,7 +29,7 @@ public class CategoriaServiceImpl implements CategoriaService {
 	}
 
 	@Override
-	public void save(@Valid Categoria categoria) {
+	public void save(@Valid Categoria categoria)  throws ValidationException{
 		categoriaRepo.save(categoria);
 	}
 
@@ -38,14 +39,14 @@ public class CategoriaServiceImpl implements CategoriaService {
 	}
 
 	@Override
-	public void update(@Valid Categoria categoria) {
+	public void update(@Valid Categoria categoria)  throws ValidationException{
 		categoriaRepo.findById(categoria.getId())
 				.orElseThrow(() -> new IllegalArgumentException("Non esiste una categoria con id " + categoria.getId()));
 		categoriaRepo.save(categoria);
 	}
 
 	@Override
-	public void delete(@Valid Categoria categoria) {
+	public void delete(@Valid Categoria categoria)  throws ValidationException{
 		categoriaRepo.delete(categoria);
 	}
 }

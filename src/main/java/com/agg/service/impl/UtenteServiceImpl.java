@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import javax.validation.ValidationException;
 
 import org.springframework.stereotype.Service;
 
@@ -28,7 +29,7 @@ public class UtenteServiceImpl implements UtenteService{
 	}
 
 	@Override
-	public void save(@Valid Utente utente) {
+	public void save(@Valid Utente utente)  throws ValidationException{
 		utenteRepo.save(utente);
 
 	}
@@ -39,14 +40,14 @@ public class UtenteServiceImpl implements UtenteService{
 	}
 
 	@Override
-	public void update(@Valid Utente utente) {
+	public void update(@Valid Utente utente)  throws ValidationException{
 		utenteRepo.findById(utente.getId_utente())
 				.orElseThrow(() -> new IllegalArgumentException("Non esiste una categoria con id " + utente.getId_utente()));
 		utenteRepo.save(utente);
 	}
 
 	@Override
-	public void delete(@Valid Utente utente) {
+	public void delete(@Valid Utente utente)  throws ValidationException{
 		utenteRepo.delete(utente);
 	}
 
