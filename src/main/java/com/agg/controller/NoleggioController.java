@@ -6,6 +6,7 @@ import javax.validation.ValidationException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,7 @@ import com.agg.entities.Noleggio;
 import com.agg.service.AutomobileService;
 import com.agg.service.NoleggioService;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/noleggio")
 public class NoleggioController {

@@ -126,6 +126,14 @@ public class Utente {
 		this.noleggi = noleggi;
 	}
 
+	public Set<Ruolo> getRuoli() {
+		return ruoli;
+	}
+
+	public void setRuoli(Set<Ruolo> ruoli) {
+		this.ruoli = ruoli;
+	}
+
 	@Override
 	public String toString() {
 		return "Utente [id=" + id_utente + ", email=" + email + ", username=" + username + ", password=" + password
