@@ -4,10 +4,12 @@ package com.agg;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.agg.entities.Ruolo;
 import com.agg.entities.Utente;
@@ -20,6 +22,9 @@ public class AutonoleggioApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(AutonoleggioApplication.class, args);
 	}
+	
+	@Autowired
+	PasswordEncoder passwordEncoder;
 	
 	@Bean
 	public CommandLineRunner runner(RuoloServiceImpl ruolo,
@@ -40,7 +45,7 @@ public class AutonoleggioApplication {
 				Utente dio=new Utente();
 				dio.setEmail("KalashniRob98@yahoo.it");
 				dio.setEta(24);
-				dio.setPassword("Grappa9_");
+				dio.setPassword(passwordEncoder.encode("Grappa9_"));
 				dio.setPatente("123456789");
 				Set<Ruolo>ruoli= new HashSet<Ruolo>();
 				ruoli.add(r1);
@@ -50,7 +55,7 @@ public class AutonoleggioApplication {
 				Utente user=new Utente();
 				user.setEmail("Gabrielepeperna98@gmail.com");
 				user.setEta(24);
-				user.setPassword("Sambuca_8");
+				user.setPassword(passwordEncoder.encode("Sambuca_8"));
 				user.setPatente("987654321");
 				Set<Ruolo>ruoli2= new HashSet<Ruolo>();
 				ruoli.add(r2);
