@@ -12,11 +12,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.agg.security.ProviderJwt;
 import com.agg.service.UtenteService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+@RestController
 public class RefreshController {
 	private ProviderJwt providerJwt;
 	private UtenteService utenteService;
