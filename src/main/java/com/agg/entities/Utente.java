@@ -3,11 +3,15 @@ package com.agg.entities;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
@@ -15,7 +19,6 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-import com.agg.customValidation.PasswordConstraint;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -23,7 +26,7 @@ public class Utente {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id_utente;
+	private long id;
 
 	@Column(nullable = false)
 	@Email(regexp = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,4})$", message = "Email non valida")
@@ -34,7 +37,7 @@ public class Utente {
 	private String username;
 
 	@Column(nullable = false)
-	@PasswordConstraint(message = "La password non rispetta i criteri")
+//	@PasswordConstraint(message = "La password non rispetta i criteri")
 	private String password;
 
 	@Column(nullable = false)
@@ -50,30 +53,30 @@ public class Utente {
 	@JsonIgnore
 	private Set<Noleggio> noleggi;
 
-	@ManyToMany(mappedBy = "utenti")
+	@ManyToMany(fetch = FetchType.EAGER)
+//	@JoinTable(name = "ruoli_utenti", joinColumns = @JoinColumn(name = "id_ruolo"), inverseJoinColumns = @JoinColumn(name = "id_utente"))
 	private Set<Ruolo> ruoli = new HashSet<>();
 
 	public Utente() {
 		super();
 	}
 
-	public Utente(long id_utente, String email, String username, String password, int eta, String patente) {
+	public Utente(long id, String email, String username, String password, int eta, String patente) {
 		super();
-		this.id_utente = id_utente;
+		this.id = id;
 		this.email = email;
 		this.username = username;
 		this.password = password;
 		this.eta = eta;
 		this.patente = patente;
-		this.ruoli.add(new Ruolo(2, "user"));
 	}
 
 	public long getId_utente() {
-		return id_utente;
+		return id;
 	}
 
-	public void setId_utente(long id_utente) {
-		this.id_utente = id_utente;
+	public void setId_utente(long id) {
+		this.id = id;
 	}
 
 	public String getEmail() {
@@ -134,7 +137,7 @@ public class Utente {
 
 	@Override
 	public String toString() {
-		return "Utente [id=" + id_utente + ", email=" + email + ", username=" + username + ", password=" + password
-				+ ", eta=" + eta + ", patente=" + patente + "]";
+		return "Utente [id=" + id + ", email=" + email + ", username=" + username + ", password=" + password + ", eta="
+				+ eta + ", patente=" + patente + "]";
 	}
 }

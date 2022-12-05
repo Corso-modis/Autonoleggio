@@ -20,7 +20,7 @@ public class ProviderJwt {
 
 	public String generateToken(UserDetails userAuth, String hostURL) {
 		return JWT.create().withSubject(userAuth.getUsername())
-				.withExpiresAt(new Date(System.currentTimeMillis() + 5 * 60 * 1000)) 
+				.withExpiresAt(new Date(System.currentTimeMillis() + 5 * 60 * 1000))
 				// 5 minuti di durata validita
 				.withIssuer(hostURL).withClaim("roles", userAuth.getAuthorities().stream()
 						.map(GrantedAuthority::getAuthority).collect(Collectors.toList()))

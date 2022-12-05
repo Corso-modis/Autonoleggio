@@ -7,15 +7,22 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+<<<<<<< HEAD
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+=======
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+>>>>>>> 226b4bee0e925d3561bb6f66d3feef4444c3b097
 
 @EnableWebSecurity
 //@EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -71,11 +78,13 @@ public class SecurityConfig {
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		http.authorizeHttpRequests(authorization -> authorization
 				.antMatchers(HttpMethod.POST, "/api/login", "/api/token/refresh").permitAll()
-				.antMatchers(HttpMethod.GET, "/automobile/id","/automobile/all").hasAnyAuthority("user", "admin")
+				.antMatchers(HttpMethod.GET, "/automobile/id", "/automobile/all").hasAnyAuthority("user", "admin")
 				// uso hasAnyAuthority perche' in automcatico aggiunge il prefisso "ROLE_" sul
-				// ruolo che indico.Con HasRole invece avrei dovuto scrivere HasRole("ROLE_user").
+				// ruolo che indico.Con HasRole invece avrei dovuto scrivere
+				// HasRole("ROLE_user").
 				// Da spring 4 ci vuole il prefisso.
 				.antMatchers(HttpMethod.POST, "/automobile/save").hasAuthority("admin").anyRequest().authenticated());
 		return http.build();
+
 	}
 }
