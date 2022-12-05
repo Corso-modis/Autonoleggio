@@ -35,7 +35,8 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter{
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		if(request.getServletPath().equals("/api/login")
-				|| request.getServletPath().equals("/api/token/refresh")) {
+				|| request.getServletPath().equals("/api/token/refresh")
+				|| request.getServletPath().equals("/h2-console")) {
 			//se la request è verso questi endpoint publici allora la lascio passare
 			filterChain.doFilter(request, response);
 		}else {
