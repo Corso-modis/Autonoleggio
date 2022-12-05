@@ -7,26 +7,16 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-<<<<<<< HEAD
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-=======
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
->>>>>>> 226b4bee0e925d3561bb6f66d3feef4444c3b097
 
 @EnableWebSecurity
 //@EnableGlobalMethodSecurity(prePostEnabled = true)
-@Configuration
 public class SecurityConfig {
 
 	@Autowired
@@ -85,6 +75,5 @@ public class SecurityConfig {
 				// Da spring 4 ci vuole il prefisso.
 				.antMatchers(HttpMethod.POST, "/automobile/save").hasAuthority("admin").anyRequest().authenticated());
 		return http.build();
-
 	}
 }

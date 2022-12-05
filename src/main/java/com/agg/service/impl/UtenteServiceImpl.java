@@ -80,5 +80,11 @@ public class UtenteServiceImpl implements UtenteService{
 		System.err.println(authorities);
 		return new User(utente.getUsername(), utente.getPassword(), authorities);
 	}
+	
+	@Override
+	public Utente findByUsername(String username) {
+		Optional<Utente> utenteOpt = utenteRepo.findByUsername(username);
+		return utenteOpt.orElseThrow(() -> new UsernameNotFoundException("Username "+username+ "non trovata"));
+	}
 
 }

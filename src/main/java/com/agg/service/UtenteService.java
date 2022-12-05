@@ -18,4 +18,6 @@ public interface UtenteService {
 	public void delete(Utente utente);
 	
 	public UserDetails loadUtenteByUsername(String username);
+	
+	public Utente findByUsername(String username);
 }
