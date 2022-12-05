@@ -11,6 +11,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,25 +20,22 @@ import com.agg.service.UtenteService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
+@CrossOrigin
 public class RefreshController {
 	private ProviderJwt providerJwt;
 	private UtenteService utenteService;
-	
-	
-	
+
 	public RefreshController(ProviderJwt providerJwt, UtenteService utenteService) {
 		super();
 		this.providerJwt = providerJwt;
 		this.utenteService = utenteService;
 	}
 
-
-
 	@PostMapping("/api/token/refresh")
-	public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException{
+	public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String authorizationHeaderValue = request.getHeader(HttpHeaders.AUTHORIZATION);
-		
-		if(authorizationHeaderValue != null && authorizationHeaderValue.startsWith("Bearer ")) {
+
+		if (authorizationHeaderValue != null && authorizationHeaderValue.startsWith("Bearer ")) {
 			try {
 				String refresh_token = authorizationHeaderValue.substring("Bearer ".length());
 				String username = providerJwt.getUsernameFromToken(refresh_token);
@@ -48,9 +46,9 @@ public class RefreshController {
 				tokens.put("refresh_token", refresh_token);
 				response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 				new ObjectMapper().writeValue(response.getOutputStream(), tokens);
-			}catch(Exception ex) {
+			} catch (Exception ex) {
 				ex.printStackTrace();
-				//token non valido per vari motivi(scaduta, formato male ecc..)
+				// token non valido per vari motivi(scaduta, formato male ecc..)
 				response.setHeader("errore", ex.getMessage());
 				response.setStatus(HttpStatus.FORBIDDEN.value());
 				response.setContentType(MediaType.APPLICATION_JSON_VALUE);
@@ -58,7 +56,7 @@ public class RefreshController {
 				errore.put("error", ex.getMessage());
 				new ObjectMapper().writeValue(response.getOutputStream(), errore);
 			}
-		}else {
+		} else {
 			throw new RuntimeException("Non è stato fornito il refresh token");
 		}
 	}

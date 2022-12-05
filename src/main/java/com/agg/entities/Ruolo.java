@@ -2,16 +2,14 @@ package com.agg.entities;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Positive;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -20,21 +18,19 @@ public class Ruolo {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id_ruolo;
+	private long id;
 
 	@Column(nullable = false)
 	@NotBlank(message = "Nome inserito non valido")
 	private String nome;
 
-	@ManyToMany
-	@JoinTable(name = "ruoli_utenti", joinColumns = @JoinColumn(name = "id_ruolo"),
-			inverseJoinColumns = @JoinColumn(name = "id_utente"))
 	@JsonIgnore
+	@ManyToMany(mappedBy = "ruoli")
 	private Set<Utente> utenti;
 
-	public Ruolo(long id_ruolo, String nome) {
+	public Ruolo(long id, String nome) {
 		super();
-		this.id_ruolo = id_ruolo;
+		this.id = id;
 		this.nome = nome;
 	}
 
@@ -43,11 +39,11 @@ public class Ruolo {
 	}
 
 	public long getId_ruolo() {
-		return id_ruolo;
+		return id;
 	}
 
-	public void setId_ruolo(long id_ruolo) {
-		this.id_ruolo = id_ruolo;
+	public void setId_ruolo(long id) {
+		this.id = id;
 	}
 
 	public String getNome() {
@@ -68,6 +64,6 @@ public class Ruolo {
 
 	@Override
 	public String toString() {
-		return "Ruolo [id_ruolo=" + id_ruolo + ", nome=" + nome + "]";
+		return "Ruolo [id=" + id + ", nome=" + nome + "]";
 	}
 }
